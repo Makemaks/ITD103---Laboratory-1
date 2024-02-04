@@ -25,14 +25,14 @@ app.get('/get/:id', (req, res) => {
 
 app.post('/create', (req, res) => {
     EmployeeModel.create(req.body)
-        .then(employee => res.json({ message: 'Employee created successfully' }, employee))
+        .then(employee => res.status(201).json({ message: 'Employee created successfully', employee: employee }))
         .catch(err => res.json(err));
 });
 
 app.put('/update/:id', (req, res) => {
     const id = req.params.id;
     EmployeeModel.findByIdAndUpdate(id, req.body, { new: true }) 
-        .then(employee => res.json({ message: 'Employee updated successfully' }, employee))
+        .then(employee => res.json({ message: 'Employee updated successfully', employee: employee }))
         .catch(err => res.json(err));
 });
 
@@ -46,3 +46,5 @@ app.delete('/delete/:id', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
+
+
